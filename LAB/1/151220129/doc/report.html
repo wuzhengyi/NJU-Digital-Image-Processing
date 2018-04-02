@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset='utf-8'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.4.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head><body class="markdown-body">
+<h1 data-line="0" class="code-line" id="%E4%BD%9C%E4%B8%9A%E4%B8%80-%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96">作业一 直方图均衡化</h1>
+<h2 data-line="1" class="code-line" id="%E5%90%B4%E6%94%BF%E4%BA%BF-151220129-18805156360163com-tel18805156360">吴政亿 151220129 <a href="mailto:18805156360@163.com">18805156360@163.com</a> tel:18805156360</h2>
+<p data-line="2" class="code-line"><em>(南京大学 计算机科学与技术系, 南京  210093)</em></p>
+<h3 data-line="3" class="code-line" id="%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82">实现细节</h3>
+<h4 data-line="5" class="code-line" id="%E5%8D%95%E9%80%9A%E9%81%93%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96">单通道直方图均衡化</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[output2]</span> = <span class="hljs-title">hist_equal</span><span class="hljs-params">(input_channel)</span></span>
+    <span class="hljs-comment">%you should complete this sub-function</span>
+    input_channel=im2double(input_channel);
+
+    [M,N]=<span class="hljs-built_in">size</span>(input_channel);
+    [counts,x]=imhist(input_channel);
+    location=<span class="hljs-built_in">find</span>(counts~=<span class="hljs-number">0</span>);
+    MinCDF=min(counts(location));
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span>=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(location)
+        CDF=sum(counts(location(<span class="hljs-number">1</span>:<span class="hljs-built_in">j</span>)));
+        P=input_channel==x(location(<span class="hljs-built_in">j</span>));
+        input_channel(P)=(CDF-MinCDF)/(M*N-MinCDF);
+<span class="hljs-comment">%             input_channel(P) = CDF/(M*N);</span>
+    <span class="hljs-keyword">end</span>
+    [output2] = input_channel;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<ol>
+<li data-line="24" class="code-line">先将其转化为double类型</li>
+<li data-line="25" class="code-line">得到像素的大小为M*N</li>
+<li data-line="26" class="code-line">统计灰度值x有多少个count</li>
+<li data-line="27" class="code-line">location得到灰度值个数不为0的x的下标</li>
+<li data-line="28" class="code-line">得到location中最小值为MinCDF</li>
+<li data-line="29" class="code-line">计算各个灰度级在直方图均衡化后的灰度级并修改</li>
+</ol>
+<p data-line="31" class="code-line"><strong>优化</strong>: 相比老师之间给出的公式
+<code>input_channel(P) = CDF/(M*N);</code><br>
+进一步优化为
+<code>input_channel(P)=(CDF-MinCDF)/(M*N-MinCDF)</code>，<br>
+可以优化图像对比度不会因为最小值而过高</p>
+<h4 data-line="37" class="code-line" id="rgb%E5%9B%BE%E5%83%8F%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96">RGB图像直方图均衡化</h4>
+<h5 data-line="39" class="code-line" id="%E6%96%B9%E6%B3%95%E4%B8%80-hsi%E5%9B%BE%E5%83%8F">方法一 HSI图像</h5>
+<p data-line="40" class="code-line">直接获得r,v,b三个通道，并对他们各自进行单通道直方图均衡化，<br>
+然后再将他们拼合成RGB图像。发现效果非常的差，会产生严重的失真。</p>
+<h5 data-line="43" class="code-line" id="%E6%96%B9%E6%B3%95%E4%BA%8C-hsi%E5%9B%BE%E5%83%8F">方法二 HSI图像</h5>
+<p data-line="44" class="code-line">将RGB图像转换为HSI图像，然后单独对I通道进行处理，效果与预计有偏差。<br>
+在了解中，HSI优化效果与HSV应该是差不多的，但是在实验中产生了图片的破碎感，<br>
+具体体现为：部分区域没有优化，从而与优化后的区域产生鲜明的对比。<br>
+怀疑是hsi2rgb与rgb2hsi的实现有bug。</p>
+<h5 data-line="49" class="code-line" id="%E6%96%B9%E6%B3%95%E4%B8%89-hsv%E5%9B%BE%E5%83%8F">方法三 HSV图像</h5>
+<p data-line="50" class="code-line">将RGB图像转换为HSV图像，然后单独对V通道进行处理，发现效果非常好。</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[output4]</span> = <span class="hljs-title">hist_HSV_equal</span><span class="hljs-params">(input_HSV_image)</span></span>
+        hv=<span class="hljs-built_in">rgb2hsv</span>(input_HSV_image); 
+        <span class="hljs-comment">% 可以通过下面的程序看一幅图的HSV三个通道 </span>
+        H=hv(:,:,<span class="hljs-number">1</span>);
+        S=hv(:,:,<span class="hljs-number">2</span>);
+        V=hv(:,:,<span class="hljs-number">3</span>);
+        V1 = hist_equal(V);
+        output4 = <span class="hljs-built_in">cat</span>(<span class="hljs-number">3</span>,H,S,V1);
+        output4 = <span class="hljs-built_in">hsv2rgb</span>(output4);
+    <span class="hljs-keyword">end</span>
+</div></code></pre>
+<h3 data-line="65" class="code-line" id="%E7%BB%93%E6%9E%9C">结果</h3>
+<h4 data-line="67" class="code-line" id="%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE">实验设置</h4>
+<p data-line="68" class="code-line">matlab window10环境，工作目录为code下。</p>
+<h4 data-line="69" class="code-line" id="%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C">实验结果</h4>
+<h5 data-line="71" class="code-line" id="%E8%AF%BE%E4%B8%8A%E8%AE%B2%E7%9A%84%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96">课上讲的直方图均衡化</h5>
+<p data-line="72" class="code-line"><img src="https://img-blog.csdn.net/2018040213380696?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3RpY2Uw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="500" alt="gray1"></p>
+<h5 data-line="74" class="code-line" id="%E4%BC%98%E5%8C%96%E5%90%8E%E7%9A%84%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96">优化后的直方图均衡化</h5>
+<p data-line="75" class="code-line"><img src="https://img-blog.csdn.net/20180402133822325?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3RpY2Uw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="500" alt="gray2"></p>
+<h5 data-line="77" class="code-line" id="%E5%AF%B9rgb%E4%B8%89%E9%80%9A%E9%81%93%E5%88%86%E5%88%AB%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95%E4%B8%80">对RGB三通道分别处理&lt;方法一&gt;</h5>
+<p data-line="78" class="code-line"><img src="https://img-blog.csdn.net/20180402133834681?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3RpY2Uw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="500" alt="rgb"></p>
+<h5 data-line="80" class="code-line" id="%E5%B0%86rgb%E8%BD%AC%E5%8C%96%E4%B8%BAhsi%E5%B9%B6%E5%A4%84%E7%90%86i%E9%80%9A%E9%81%93%E6%96%B9%E6%B3%95%E4%BA%8C">将RGB转化为HSI并处理I通道&lt;方法二&gt;</h5>
+<p data-line="81" class="code-line"><img src="https://img-blog.csdn.net/20180402133848154?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3RpY2Uw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="500" alt="hsi"></p>
+<h5 data-line="83" class="code-line" id="%E5%B0%86rgb%E8%BD%AC%E5%8C%96%E4%B8%BAhsv%E5%B9%B6%E5%A4%84%E7%90%86v%E9%80%9A%E9%81%93%E6%96%B9%E6%B3%95%E4%B8%89">将RGB转化为HSV并处理V通道&lt;方法三&gt;</h5>
+<p data-line="84" class="code-line"><img src="https://img-blog.csdn.net/20180402133858721?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3RpY2Uw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="500" alt="hsv"></p>
+
+</body></html>

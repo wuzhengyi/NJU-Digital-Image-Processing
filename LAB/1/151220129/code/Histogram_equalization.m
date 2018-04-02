@@ -6,8 +6,8 @@ if numel(size(input_image)) == 3
     %equalization, you can change the following code
     
 %     output = hist_RGB_equal(input_image);
-    output = hist_HSV_equal(input_image);
-%     output = hist_HSI_equal(input_image);
+%     output = hist_HSV_equal(input_image);
+    output = hist_HSI_equal(input_image);
 
 
 else
@@ -26,6 +26,7 @@ end
             CDF=sum(counts(location(1:j)));
             P=input_channel==x(location(j));
             input_channel(P)=(CDF-MinCDF)/(M*N-MinCDF);
+%             input_channel(P) = CDF/(M*N);
         end
         [output2] = input_channel;
     end
