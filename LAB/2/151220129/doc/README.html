@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 12px; line-height: 22px; word-wrap: break-word; } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } img { max-width: 100%; max-height: 100%; } a { color: #4080D0; text-decoration: none; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } a:hover { color: #4080D0; text-decoration: underline; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left: 5px solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ .vscode-light { color: rgb(30, 30, 30); } .vscode-dark { color: #DDD; } .vscode-high-contrast { color: white; } .vscode-light code { color: #A31515; } .vscode-dark code { color: #D7BA7D; } .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } .vscode-light blockquote, .vscode-dark blockquote { background: rgba(127, 127, 127, 0.1); border-color: rgba(0, 122, 204, 0.5); } .vscode-high-contrast blockquote { background: transparent; border-color: #fff; }
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+ul.contains-task-list { padding-left: 0; } ul ul.contains-task-list { padding-left: 40px; } .task-list-item { list-style-type: none; } .task-list-item-checkbox { vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="">作业一 直方图均衡化</h1>
+<p><strong>吴政亿 151220129 <a href="mailto:nju_wzy@163.com">nju_wzy@163.com</a></strong></p>
+<p><em>(南京大学 计算机科学与技术系, 南京  210093)</em></p>
+<h2 id="">边缘检测</h2>
+<p>在边缘检测中，我使用了<code>sobel</code>，<code>roberts</code>，<code>prewitt</code>作为算子，对每一种算子调参，并进行了比较。</p>
+<h3 id="">主体框架</h3>
+<p>在<code>my_edge.m</code>中13~24行分别对应三个算子的high与low参数，大于high的被识别为边界，小于low的则被识别为非边界，在low~high之间的则根据邻域是否有边界来决定是否是边界。这样可以排除一部分的孤立点与噪声。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span> = <span class="hljs-title">my_edge</span><span class="hljs-params">(input_image)</span></span>
+    input_image=im2double(input_image);
+    [M,N]=<span class="hljs-built_in">size</span>(input_image);
+    SX = <span class="hljs-built_in">zeros</span>(M,N);
+    SY = <span class="hljs-built_in">zeros</span>(M,N);
+<span class="hljs-comment">%     %sobel</span>
+<span class="hljs-comment">%     high = 0.3;   % moon:0.3  others:1.5</span>
+<span class="hljs-comment">%     low = 0.2;    % moon:0.2  others:0.5</span>
+
+<span class="hljs-comment">%     %roberts</span>
+<span class="hljs-comment">%     high = 0.09;  % moon:0.09 key:0.4     cap:0.5 </span>
+<span class="hljs-comment">%     low = 0.05;   % moon:0.05 others:0.2</span>
+
+    <span class="hljs-comment">%prewitt</span>
+    high = <span class="hljs-number">0.25</span>;    <span class="hljs-comment">% moon:0.25 others:0.8</span>
+    low = <span class="hljs-number">0.1</span>;      <span class="hljs-comment">% moon:0.1  others:0.5</span>
+
+    gray_image = <span class="hljs-built_in">zeros</span>(M<span class="hljs-number">-2</span>,N<span class="hljs-number">-2</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>=<span class="hljs-number">2</span>:M<span class="hljs-number">-1</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">2</span>:N<span class="hljs-number">-1</span>
+<span class="hljs-comment">%             gray_image(i-1,j-1) = sobel(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));</span>
+<span class="hljs-comment">%             gray_image(i-1,j-1) = roberts(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));</span>
+            gray_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>) = prewitt(input_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>),input_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>),input_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>+<span class="hljs-number">1</span>),input_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>),input_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>),input_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>+<span class="hljs-number">1</span>),input_image(<span class="hljs-built_in">i</span>+<span class="hljs-number">1</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>),input_image(<span class="hljs-built_in">i</span>+<span class="hljs-number">1</span>,<span class="hljs-built_in">j</span>),input_image(<span class="hljs-built_in">i</span>+<span class="hljs-number">1</span>,<span class="hljs-built_in">j</span>+<span class="hljs-number">1</span>));
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    
+    edge_image = <span class="hljs-built_in">zeros</span>(M<span class="hljs-number">-2</span>,N<span class="hljs-number">-2</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>:M<span class="hljs-number">-2</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span>:N<span class="hljs-number">-2</span>
+            <span class="hljs-keyword">if</span> gray_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) &gt; high
+                edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">elseif</span> gray_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) &lt; low
+                edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">elseif</span> <span class="hljs-built_in">i</span>==<span class="hljs-number">1</span> || <span class="hljs-built_in">j</span> ==<span class="hljs-number">1</span> || <span class="hljs-built_in">i</span> == M<span class="hljs-number">-2</span> || <span class="hljs-built_in">j</span> == N<span class="hljs-number">-2</span>
+                edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">else</span>
+                edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) = <span class="hljs-number">-1</span>;
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">2</span>:M<span class="hljs-number">-3</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">2</span>:N<span class="hljs-number">-3</span>
+            <span class="hljs-keyword">if</span> edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) == <span class="hljs-number">-1</span>
+                <span class="hljs-keyword">if</span> edge_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>+<span class="hljs-number">1</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>+<span class="hljs-number">1</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span>+<span class="hljs-number">1</span>,<span class="hljs-built_in">j</span><span class="hljs-number">-1</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span>+<span class="hljs-number">1</span>,<span class="hljs-built_in">j</span>) == <span class="hljs-number">1</span> ||edge_image(<span class="hljs-built_in">i</span>+<span class="hljs-number">1</span>,<span class="hljs-built_in">j</span>+<span class="hljs-number">1</span>) == <span class="hljs-number">1</span>
+                    edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) = <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">else</span>
+                    edge_image(<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>) = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">end</span>
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+output = logical(edge_image);
+</div></code></pre>
+<h3 id="sobel">sobel算子</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sobel_value</span> = <span class="hljs-title">sobel</span><span class="hljs-params">(v1,v2,v3,v4,v5,v6,v7,v8,v9)</span></span>
+    SX= -v1+v3<span class="hljs-number">-2</span>*v4+<span class="hljs-number">2</span>*v6-v7+v9;
+    SY= v1+<span class="hljs-number">2</span>*v2+v3-v7<span class="hljs-number">-2</span>*v8-v9;
+    sobel_value = <span class="hljs-built_in">sqrt</span>(SX^<span class="hljs-number">2</span> + SY^<span class="hljs-number">2</span>);
+</div></code></pre>
+<!-- ![](../pic/sobel.png)
+![](../pic/sobel2.png)
+![](../pic/sobel3.png)
+![](../pic/sobel4.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/sobel-2018423.png" alt="sobel-2018423" width="450">
+<img src="http://p20zaet0m.bkt.clouddn.com/sobel2-2018423.png" alt="sobel2-2018423" width="450">
+<img src="http://p20zaet0m.bkt.clouddn.com/sobel4-2018423.png" alt="sobel4-2018423" width="450">
+<p></p><img src="http://p20zaet0m.bkt.clouddn.com/sobel3-2018423.png" alt="sobel3-2018423" height="80"></p>
+<h3 id="roberts">roberts算子</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">roberts_value</span> = <span class="hljs-title">roberts</span><span class="hljs-params">(v1,v2,v3,v4,v5,v6,v7,v8,v9)</span></span>
+    SX= <span class="hljs-built_in">abs</span>(v9-v5);
+    SY= <span class="hljs-built_in">abs</span>(v6-v8);
+    roberts_value = SX + SY;
+</div></code></pre>
+<!-- ![](../pic/roberts.png)
+![](../pic/roberts2.png)
+![](../pic/roberts3.png)
+![](../pic/roberts4.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/roberts-2018423.png" alt="roberts-2018423" width="450">
+<img src="http://p20zaet0m.bkt.clouddn.com/roberts2-2018423.png" alt="roberts2-2018423" width="450">
+<img src="http://p20zaet0m.bkt.clouddn.com/roberts4-2018423.png" alt="roberts4-2018423" width="450">
+<p><img src="http://p20zaet0m.bkt.clouddn.com/roberts3-2018423.png" alt="roberts3-2018423" height="80"></p>
+<h3 id="prewitt">prewitt算子</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">prewitt_value</span> = <span class="hljs-title">prewitt</span><span class="hljs-params">(v1,v2,v3,v4,v5,v6,v7,v8,v9)</span></span>
+    SX= -v1+v3-v4+v6-v7+v9;
+    SY= v1+v2+v3-v7-v8-v9;
+    prewitt_value = <span class="hljs-built_in">sqrt</span>(SX^<span class="hljs-number">2</span> + SY^<span class="hljs-number">2</span>);
+</div></code></pre>
+<!-- ![](../pic/prewitt.png) -->
+<!-- ![](../pic/prewitt2.png) -->
+<!-- ![](../pic/prewitt3.png) -->
+<!-- ![](../pic/prewitt4.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/prewitt-2018423.png" alt="prewitt-2018423" width="450">
+<img src="http://p20zaet0m.bkt.clouddn.com/prewitt2-2018423.png" alt="prewitt2-2018423" width="450">
+<img src="http://p20zaet0m.bkt.clouddn.com/prewitt4-2018423.png" alt="prewitt4-2018423" width="450">
+<p><img src="http://p20zaet0m.bkt.clouddn.com/prewitt3-2018423.png" alt="prewitt3-2018423" height="80"></p>
+<h3 id="">三者对比</h3>
+<p><code>Roberts</code>算子定位比较精确，但由于不包括平滑，所以对于噪声比较敏感。<code>Prewitt</code>算子和<code>Sobel</code>算子都是一阶的微分算子，而前者是平均滤波，后者是加权平均滤波且检测的图像边缘可能大于2个像素。这两者对灰度渐变低噪声的图像有较好的检测效果，但是对于混合多复杂噪声的图像，处理效果就不理想了。<code>Prewitt</code>和<code>Sobel</code>算子比<code>Roberts</code> 效果要好一些，因为前两者参考了周围8个像素的灰度值，得到的信息更广。</p>
+<h2 id="">边缘链接</h2>
+<p>由于边缘链接的传入参数是一个二值图像，我应用一个队列将初始点入列，然后应用四邻域与八邻域两种情况分别对其作边缘链接，并返回所有连通分支上的点。<br>
+定义一个neighbour用来运算pix，即他的八/四邻域所有点坐标。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span> = <span class="hljs-title">my_edgelinking</span><span class="hljs-params">(binary_image, row, col)</span></span>
+    [M,N]=<span class="hljs-built_in">size</span>(binary_image);
+
+    tmp=[];
+    queue_head=<span class="hljs-number">1</span>;
+    queue_tail=<span class="hljs-number">1</span>;
+    neighbour=[<span class="hljs-number">-1</span> <span class="hljs-number">-1</span>;<span class="hljs-number">-1</span> <span class="hljs-number">0</span>;<span class="hljs-number">-1</span> <span class="hljs-number">1</span>;<span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<span class="hljs-number">0</span> <span class="hljs-number">1</span>;<span class="hljs-number">1</span> <span class="hljs-number">-1</span>;<span class="hljs-number">1</span> <span class="hljs-number">0</span>;<span class="hljs-number">1</span> <span class="hljs-number">1</span>];  <span class="hljs-comment">%8-neighbourhood</span>
+<span class="hljs-comment">%     neighbour=[-1 0;1 0;0 1;0 -1];     %4-neighbourhood</span>
+    q{queue_tail}=[row col];
+    queue_tail=queue_tail+<span class="hljs-number">1</span>;
+    [ser1 , ~]=<span class="hljs-built_in">size</span>(neighbour);
+    num = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> queue_head~=queue_tail
+        pix=q{queue_head};
+        tmp(num,<span class="hljs-number">1</span>)=pix(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);
+        tmp(num,<span class="hljs-number">2</span>)=pix(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);
+        num = num + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>=<span class="hljs-number">1</span>:ser1
+            pix1=pix+neighbour(<span class="hljs-built_in">i</span>,:);
+            <span class="hljs-keyword">if</span> pix1(<span class="hljs-number">1</span>)&gt;=<span class="hljs-number">1</span> &amp;&amp; pix1(<span class="hljs-number">2</span>)&gt;=<span class="hljs-number">1</span> &amp;&amp;pix1(<span class="hljs-number">1</span>)&lt;=M &amp;&amp; pix1(<span class="hljs-number">2</span>)&lt;=N
+                <span class="hljs-keyword">if</span> binary_image(pix1(<span class="hljs-number">1</span>),pix1(<span class="hljs-number">2</span>)) == true
+                    binary_image(pix1(<span class="hljs-number">1</span>),pix1(<span class="hljs-number">2</span>)) = false;
+                    q{queue_tail}=[pix1(<span class="hljs-number">1</span>) pix1(<span class="hljs-number">2</span>)];
+                    queue_tail=queue_tail+<span class="hljs-number">1</span>;
+
+                <span class="hljs-keyword">end</span>      
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>
+        queue_head=queue_head+<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">end</span>
+    output = tmp;
+</div></code></pre>
+<!-- ![](../pic/trace_126_232.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/trace_126_232-2018423.png" alt="trace_126_232-2018423" width="300">
+<!-- ![](../pic/trace_58_68.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/trace_58_68-2018423.png" alt="trace_58_68-2018423" width="300">
+<!-- ![](../pic/trace_26_272.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/trace_26_272-2018423.png" alt="trace_26_272-2018423" width="300">
+<!-- ![](../pic/trace_149_383.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/trace_149_383-2018423.png" alt="trace_149_383-2018423" width="300">
+<!-- ![](../pic/trace_209_96.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/trace_209_96-2018423.png" alt="trace_209_96-2018423" width="300">
+<!-- ![](../pic/trace_290_239.png) -->
+<img src="http://p20zaet0m.bkt.clouddn.com/trace_290_239-2018423.png" alt="trace_290_239-2018423" width="300">
+
+    </body>
+    </html>

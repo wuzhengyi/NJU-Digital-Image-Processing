@@ -11,10 +11,10 @@ function output = my_edgelinking(binary_image, row, col)
     [M,N]=size(binary_image);
 
     tmp=[];
-    queue_head=1;       %队列头
-    queue_tail=1;       %队列尾
-    neighbour=[-1 -1;-1 0;-1 1;0 -1;0 1;1 -1;1 0;1 1];  %和当前像素坐标相加得到八个邻域坐标
-%     neighbour=[-1 0;1 0;0 1;0 -1];     %四邻域用的
+    queue_head=1;
+    queue_tail=1;
+    neighbour=[-1 -1;-1 0;-1 1;0 -1;0 1;1 -1;1 0;1 1];  %8-neighbourhood
+%     neighbour=[-1 0;1 0;0 1;0 -1];     %4-neighbourhood
     q{queue_tail}=[row col];
     queue_tail=queue_tail+1;
     [ser1 , ~]=size(neighbour);

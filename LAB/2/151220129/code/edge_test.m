@@ -17,7 +17,7 @@ imshow(imgTestGray);
 % img_edge = edge(imgTestGray);
 img_edge = my_edge(imgTestGray);
 figure;clf;
-% imshow(img_edge);
+imshow(img_edge);
 background = im2bw(imgTest, 1);
 imshow(background);
 %using imtool, you select a object boundary to trace, and choose
@@ -27,6 +27,6 @@ imtool(img_edge);
 %function to see the last result as a reference first. please trace as many 
 %different object boundaries as you can, and choose different start edge points.
 % Bxpc = bwtraceboundary(img_edge, [126, 232], 'N');
-Bxpc = my_edgelinking(img_edge, 126, 232);
+Bxpc = my_edgelinking(img_edge, 149, 383);
 hold on
 plot(Bxpc(:,2), Bxpc(:,1), '.w', 'LineWidth', 1);

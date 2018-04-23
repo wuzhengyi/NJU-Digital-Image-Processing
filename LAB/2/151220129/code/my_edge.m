@@ -8,25 +8,25 @@ function output = my_edge(input_image)
 %the better the final result and the more methods you have used, you will get higher scores  
     input_image=im2double(input_image);
     [M,N]=size(input_image);
-    SX = zeros(M,N);
-    SY = zeros(M,N);
-%     %sobel
-%     high = 1.5;
-%     low = 0.5;
+    
+    %sobel
+    high = 1.5;   % moon:0.3  others:1.5
+    low = 0.5;    % moon:0.2  others:0.5
 
 %     %roberts
-%     high = 0.5;
-%     low = 0.2;
+%     high = 0.09;  % moon:0.09 key:0.4     cap:0.5 
+%     low = 0.05;   % moon:0.05 others:0.2
 
-    %prewitt
-    high = 0.8;
-    low = 0.5;
+%     %prewitt
+%     high = 0.8;     % moon:0.25 others:0.8
+%     low = 0.5;      % moon:0.1  others:0.5
+    
     gray_image = zeros(M-2,N-2);
     for i=2:M-1
         for j = 2:N-1
-%             gray_image(i-1,j-1) = sobel(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));
+            gray_image(i-1,j-1) = sobel(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));
 %             gray_image(i-1,j-1) = roberts(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));
-            gray_image(i-1,j-1) = prewitt(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));
+%             gray_image(i-1,j-1) = prewitt(input_image(i-1,j-1),input_image(i-1,j),input_image(i-1,j+1),input_image(i,j-1),input_image(i,j),input_image(i,j+1),input_image(i+1,j-1),input_image(i+1,j),input_image(i+1,j+1));
         end
     end
     
@@ -58,14 +58,17 @@ function output = my_edge(input_image)
     end
                 
     output = logical(edge_image);
+
     function sobel_value = sobel(v1,v2,v3,v4,v5,v6,v7,v8,v9)
         SX= -v1+v3-2*v4+2*v6-v7+v9;
         SY= v1+2*v2+v3-v7-2*v8-v9;
         sobel_value = sqrt(SX^2 + SY^2);
+
     function roberts_value = roberts(v1,v2,v3,v4,v5,v6,v7,v8,v9)
         SX= abs(v9-v5);
         SY= abs(v6-v8);
         roberts_value = SX + SY;
+        
     function prewitt_value = prewitt(v1,v2,v3,v4,v5,v6,v7,v8,v9)
         SX= -v1+v3-v4+v6-v7+v9;
         SY= v1+v2+v3-v7-v8-v9;
