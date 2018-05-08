@@ -7,7 +7,7 @@
 %detection, but you just need do edge linking for rubberband_cap.png.
 clc; clear all;
 % Load the test image
-imgTest = im2double(imread('../asset/image/rubberband_cap.png'));
+imgTest = im2double(imread('../asset/image/moon.jpg'));
 imgTestGray = rgb2gray(imgTest);
 figure; clf;
 imshow(imgTestGray);
@@ -15,7 +15,8 @@ imshow(imgTestGray);
 %now call your function my_edge, you can use matlab edge function to see
 %the last result as a reference first
 % img_edge = edge(imgTestGray);
-img_edge = my_edge(imgTestGray);
+% img_edge = my_edge(imgTestGray);
+img_edge = my_edge_marr(imgTestGray);
 figure;clf;
 imshow(img_edge);
 background = im2bw(imgTest, 1);
@@ -27,6 +28,6 @@ imtool(img_edge);
 %function to see the last result as a reference first. please trace as many 
 %different object boundaries as you can, and choose different start edge points.
 % Bxpc = bwtraceboundary(img_edge, [126, 232], 'N');
-Bxpc = my_edgelinking(img_edge, 149, 383);
+Bxpc = my_edgelinking(img_edge, 126, 239);
 hold on
 plot(Bxpc(:,2), Bxpc(:,1), '.w', 'LineWidth', 1);
